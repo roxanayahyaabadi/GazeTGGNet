@@ -7,3 +7,8 @@ This repository introduces a graph-based model for gaze estimation using a Graph
 # Landmak Extraction
 ## GazeCapture dataset
 Please use `LandmarkExtraction_GazeCapture.py` file to extract all 478 landmarks from valid images.
+
+
+# TGGNet
+## GazeCapture
+Please run `TGGNET_GazeCapture.py` code for training and testing the proposed TGGNet on Gazecapture. The test scale is normal Euclidean. For converting it back to real scale (centimeter), run 
