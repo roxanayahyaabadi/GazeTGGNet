@@ -11,4 +11,4 @@ Please use `LandmarkExtraction_GazeCapture.py` file to extract all 478 landmarks
 
 # TGGNet
 ## GazeCapture
-Please run `TGGNET_GazeCapture.py` code for training and testing the proposed TGGNet on Gazecapture. The test scale is normal Euclidean. For converting it back to real scale (centimeter), run 
+Please run `TGGNET_GazeCapture.py` code for training and testing the proposed TGGNet on Gazecapture. The test scale is normal Euclidean. For converting it back to real scale (centimeter), run `RealScale_GazeCapture.py`.
