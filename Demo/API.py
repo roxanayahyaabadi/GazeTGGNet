@@ -1,3 +1,4 @@
+
 import cv2
 import torch
 import numpy as np
@@ -73,18 +74,15 @@ def build_graph_from_landmarks(landmarks, edges):
 # Define edges (from provided code)
 edges = [(468, node) for node in range(478) if node != 468]
 edges += [(473, node) for node in range(478) if node != 473]
-edges.extend([(471, 159), (159, 469), (469, 145), (145, 471),
-              (476, 475), (475, 474), (474, 477), (477, 476),
-              (1, 33), (1, 173), (1, 162), (1, 263), (1, 398), (1, 368),
-              (33, 246), (146, 161), (161, 160), (160, 150), (150, 158), (158, 157),
-              (157, 173), (173, 155), (155, 154), (154, 153), (153, 145), (145, 144),
-              (144, 163), (163, 7), (7, 33),
-              (398, 384), (384, 385), (385, 386), (386, 387), (387, 388),
-              (388, 263), (263, 249), (249, 390), (390, 373), (373, 374),
-              (374, 380), (380, 381), (381, 382), (382, 398)])
+edges.extend([(471, 159), (159, 469), (469, 145), (145, 471), (476, 475), (475, 474), (474, 477), (477, 476),
+              (1, 33), (1, 173), (1, 162), (1, 263), (1, 398), (1, 368), (33, 246), (146, 161), (161, 160),
+              (160, 150), (150, 158), (158, 157), (157, 173), (173, 155), (155, 154), (154, 153), (153, 145),
+              (145, 144), (144, 163), (163, 7), (7, 33), (398, 384), (384, 385), (385, 386), (386, 387), (387, 388),
+              (388, 263), (263, 249), (249, 390), (390, 373), (373, 374), (374, 380), (380, 381), (381, 382),
+              (382, 398)])
 
 # Path to input video
-input_video_path = ".../test.mp4"
+input_video_path = ".../input.mp4"
 
 # Read the video
 cap = cv2.VideoCapture(input_video_path)
@@ -128,27 +126,45 @@ while cap.isOpened():
 
 cap.release()
 
-# Print average execution time per frame
+# Calculate average execution time per frame
 average_execution_time = sum(execution_times) / len(execution_times)
 
-
-# Visualize the gaze vectors on the frames
+# Visualize the gaze vectors on the frames with POG display
 output_frames = []
 for i, frame in enumerate(frames):
     if i >= len(gaze_vectors):
         break
     landmarks = landmarks_list[i]
     gaze_vector = gaze_vectors[i]
-    # Convert gaze vector to 3D vector (example calculation, adjust as needed)
+
+    # Scale POG coordinates
+    pog_x = int(gaze_vector[0][0] * frame_width)
+    pog_y = int(gaze_vector[0][1] * frame_height)
+
+    # Add a small black rectangle on top of the frame
+    black_bg = (0, 0, 0)
+    text_color = (0, 255, 255)  # Yellow color for the text
+    overlay_height = 30
+    cv2.rectangle(frame, (0, 0), (frame_width, overlay_height), black_bg, -1)
+
+    # Display POG coordinates on the black rectangle
+    text = f"POG: ({pog_x}, {pog_y})"
+    cv2.putText(frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, text_color, 3, cv2.LINE_AA)
+
+    # Convert gaze vector to 3D vector with x = -x and y = y
     gaze_vector_3d = np.array([-gaze_vector[0][0], gaze_vector[0][1], 1.0])
-    start_point_468 = (int(landmarks[468][0] * frame.shape[1]), int(landmarks[468][1] * frame.shape[0]))
+
+    # Draw the gaze vector starting from landmarks 468 and 473
+    start_point_468 = (int(landmarks[468][0] * frame_width), int(landmarks[468][1] * frame_height))
     end_point_468 = (
     start_point_468[0] + int(gaze_vector_3d[0] * 100), start_point_468[1] - int(gaze_vector_3d[1] * 100))
-    start_point_473 = (int(landmarks[473][0] * frame.shape[1]), int(landmarks[473][1] * frame.shape[0]))
+    start_point_473 = (int(landmarks[473][0] * frame_width), int(landmarks[473][1] * frame_height))
     end_point_473 = (
     start_point_473[0] + int(gaze_vector_3d[0] * 100), start_point_473[1] - int(gaze_vector_3d[1] * 100))
+
     cv2.arrowedLine(frame, start_point_468, end_point_468, (0, 0, 255), 4, tipLength=0.2)
     cv2.arrowedLine(frame, start_point_473, end_point_473, (0, 0, 255), 4, tipLength=0.2)
+
     output_frames.append(frame)
 
 # Save the output video
@@ -156,8 +172,7 @@ output_video_path = ".../Output.mp4"
 clip = ImageSequenceClip([cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) for frame in output_frames], fps=fps)
 clip.write_videofile(output_video_path, codec='libx264')
 
-# print(f"Output video saved to {output_video_path}")
-
 fps = 1 / average_execution_time
 print(f"FPS: {fps:.2f}")
-print(f"Average execution time per frame: {average_execution_time*1000:.4f} ms")
+print(f"Average execution time per frame: {average_execution_time * 1000:.4f} ms")
+
