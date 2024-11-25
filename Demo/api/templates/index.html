@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Test</title>
+    <style>
+        /* Add some basic styling for the loading indicator */
+        #loadingIndicator {
+            display: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload a Video</h1>
+    <form id="uploadForm">
+        <input type="file" id="video" name="video" accept="video/*" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <!-- Loading indicator -->
+    <div id="loadingIndicator">Processing... Please wait.</div>
+
+    <div id="response"></div>
+    <video id="outputVideo" controls style="display:none; width: 100%; max-width: 600px;"></video>
+    <p id="executionTime" style="font-weight: bold;"></p>
+    <p id="fps" style="font-weight: bold;"></p>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            // Show loading indicator
+            document.getElementById('loadingIndicator').style.display = 'block';
+
+            const formData = new FormData();
+            const fileField = document.querySelector('input[type="file"]');
+            formData.append('video', fileField.files[0]);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (result.video_url) {
+                    const videoElement = document.getElementById('outputVideo');
+                    videoElement.style.display = 'block';
+                    videoElement.src = result.video_url;
+                    videoElement.style.height = '600px';
+                    videoElement.style.width = '300px';
+                    document.getElementById('executionTime').innerText = 
+                        `Average Execution Time: ${(result.average_execution_time * 1000).toFixed(3)} ms`;
+                    document.getElementById('fps').innerText = `FPS: ${(1 / result.average_execution_time).toFixed(0)}`;
+                    
+                } else {
+                    document.getElementById('response').innerText = JSON.stringify(result, null, 2);
+                }
+            } catch (error) {
+                document.getElementById('response').innerText = 'An error occurred during the upload. Please try again.';
+            } finally {
+                // Hide loading indicator
+                document.getElementById('loadingIndicator').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
