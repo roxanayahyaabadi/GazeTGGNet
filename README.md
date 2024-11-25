@@ -34,7 +34,7 @@ The following video shows the input video.
 
 After applying Demo to it, we will have the resulting video as follows that indicates the gaze vectors and the POG for each frame.
 
-![](Media/Result_Video.gif) 
+![](Media/Result_test5.gif) 
 
 
 
