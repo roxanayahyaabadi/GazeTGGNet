@@ -6,7 +6,10 @@ This repository introduces a graph-based model for gaze estimation using a Graph
 
 # Landmak Extraction
 ## GazeCapture dataset
-Please use `LandmarkExtraction_GazeCapture.py` file to extract all 478 landmarks from valid images.
+Please use `LandmarkExtraction_GazeCapture.py` file to extract all 478 landmarks from valid images. Please note the name of those images that the Mediapipe fails to work with, will be saved in `..._failed_images_batch_....txt` files.
+
+## MPIIFaceGaze
+Please run `LandmarkExtraction_MPIIFaceGaze.py` file to extract 478 landmarks from normalized images of MPIIFaceGaze dataset.
 
 
 # TGGNet
