@@ -26,5 +26,15 @@ Change the `output_video_path` to match the output video's path.
 
 Then run `API.py` code to have the output video visualizing gaze vectors, POG coordinates, FPS, and execution time.
 
+## Look at the following example:
+
+The following video shows the input video.
+
+![](Media/Input_video.gif) 
+
+After applying Demo to it, we will have the resulting video as follows that indicates the gaze vectors and the POG for each frame.
+
+![](Media/Result_Video.gif) 
+
 
 
