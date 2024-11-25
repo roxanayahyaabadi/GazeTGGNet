@@ -12,9 +12,15 @@ Please use `LandmarkExtraction_GazeCapture.py` file to extract all 478 landmarks
 Please run `LandmarkExtraction_MPIIFaceGaze.py` file to extract 478 landmarks from normalized images of MPIIFaceGaze dataset.
 
 
-# TGGNet
+# Training TGGNet
 ## GazeCapture
-Please run `TGGNET_GazeCapture.py` code for training and testing the proposed TGGNet on Gazecapture. The test scale is normal Euclidean. To convert it back to real scale (centimeter), run `RealScale_GazeCapture.py`.
+Please run `TGGNET_GazeCapture.py` code for training and testing the proposed TGGNet on Gazecapture dataset. The test scale is normal Euclidean. To convert it back to real scale (centimeter), run `RealScale_GazeCapture.py`.
+
+## MPIIFaceGaze
+Please run `MPIIFaceGaze_Normal.py` for training and testing the proposed TGGNet on MPIIFaceGaze dataset. For converting the POG to the, run `Real_world_MPIIFaceGaze.py` so the test scale is normal Euclidean in mm. 
+
+## Gaze360
+Please run `Gaze360.py` for training and testing the proposed TGGNet on Gaze360 dataset. The test scale is mean angle error in degree.
 
 # Demo
 
