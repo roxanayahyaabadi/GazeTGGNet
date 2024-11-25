@@ -14,13 +14,6 @@ Please use `LandmarkExtraction_GazeCapture.py` file to extract all 478 landmarks
 Please run `TGGNET_GazeCapture.py` code for training and testing the proposed TGGNet on Gazecapture. The test scale is normal Euclidean. To convert it back to real scale (centimeter), run `RealScale_GazeCapture.py`.
 
 # Demo
-## API web-based demo:
-
-Please go to `Demo/api/api.py` and change the path of the input video.
-
-Then run it. You will see the web page open and be prompted to upload your test input video. Since the model is trained on the GazeCapture dataset, recording your video using an iPhone in portrait mode is recommended for better performance.
-
-## API only code-based demo:
 
 Change the `input_video_path` to match the input video's path.
 
