@@ -11,6 +11,9 @@ Please use `LandmarkExtraction_GazeCapture.py` file to extract all 478 landmarks
 ## MPIIFaceGaze
 Please run `LandmarkExtraction_MPIIFaceGaze.py` file to extract 478 landmarks from normalized images of MPIIFaceGaze dataset.
 
+## Gaze360
+Please run `LandmarkExtraction_Gaze360.py` to extract 478 landmarks from images of Gaze360 dataset.
+
 
 # Training TGGNet
 ## GazeCapture
