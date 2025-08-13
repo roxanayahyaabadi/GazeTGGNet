@@ -1,4 +1,5 @@
 # TGGNet (Transformer Graph Gaze Neural Network)
+## Efficient 2D/3D Gaze Estimation Using TGGNet: A Transformer Graph Approach
 This repository introduces a graph-based model for gaze estimation using a Graph Neural Network (GNN) to process facial landmarks and relational edges, ensuring precise eye gaze direction estimation. Key innovations include leveraging GNN's efficiency for real-time applications and integrating Transformer architecture to enhance feature updates.
 
 ![](Media/FacialGraph.gif) 
